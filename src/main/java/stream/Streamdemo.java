@@ -1,7 +1,9 @@
 package stream;
 
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 public class Streamdemo {
 
@@ -103,7 +105,90 @@ public class Streamdemo {
 
 		System.out.println(maxsalary);
 
+		System.out.println();
 
+
+		// this is list 
+		List<String> ep = 	employeeList.stream()
+				.map(e -> e.getFirstName())
+				.distinct()
+				.sorted().toList();
+
+		System.out.println(ep);    /// how can i count how many are there ???? in this list  ?? how can get count and firstnames in console
+
+		// this is collect to list 
+
+		// mutable list 
+
+		List<String> ep1 = 	employeeList.stream()
+				.map(e -> e.getFirstName())
+				.distinct()
+				.sorted()
+				.collect(Collectors.toList());
+
+		ep1.add("jhansi");
+		System.out.println(ep1);
+
+
+
+
+		/// immutable list 
+
+		List<String> ep11 = 	employeeList.stream()
+				.map(e -> e.getFirstName())
+				.distinct()
+				.sorted()
+				.collect(Collectors.toUnmodifiableList());
+
+		//ep11.add("jhansi");    // this is throwing error
+		System.out.println(ep11);
+
+
+		System.out.println();
+
+		// here if we have a duplicate in a map , it generally wont print throws error 
+
+		
+		// printing only a 
+	Map<String, Double> em = 	employeeList.stream()
+		.collect(Collectors.toMap(e -> e.getFirstName(), e -> e.getSalary(),
+				
+				(a,b) -> a
+				
+				));
+System.out.println(em);
+
+System.out.println();
+
+
+// printing only b
+Map<String, Double> em1 = 	employeeList.stream()
+.collect(Collectors.toMap(e -> e.getFirstName(), e -> e.getSalary(),   // use comma for and use that formula to get values  based on it return type will change
+		
+		(a,b) -> b
+		
+		));
+System.out.println(em1);
+
+System.out.println();
+
+
+// prinint both 
+Map<Object, Object> em11 = 	employeeList.stream()
+.collect(Collectors.toMap(e -> e.getFirstName(), e -> e.getSalary(),   // its printing values only for salary 
+		
+		(a,b) -> a  + "," + b
+		
+		));
+
+
+System.out.println(em11);
+
+//{Alexander=58000.0, Charlotte=54000.0, Grace=54000.0, John=60000.0, Lily=56000.0, Emily=54000.0, Sarah=58000.0, Michael=58000.0, Ella=65000.0, Ethan=62000.0, James=58000.0, Mia=65000.0, Oliver=62000.0, Alice=55000.0, Lucas=63000.0, Benjamin=62000.0, Daniel=56000.0, William=63000.0, Noah=54000.0, Harper=59000.0, Ava=62000.0, Liam=56000.0, Olivia=63000.0, Chloe=59000.0, Sophia=62000.0}
+//
+//{Alexander=58000.0, Charlotte=59000.0, Grace=54000.0, John=60000.0, Lily=56000.0, Emily=54000.0, Sarah=58000.0, Michael=58000.0, Ella=65000.0, Ethan=62000.0, James=59000.0, Mia=58000.0, Oliver=62000.0, Alice=55000.0, Lucas=63000.0, Benjamin=62000.0, Daniel=56000.0, William=54000.0, Noah=54000.0, Harper=62000.0, Ava=56000.0, Liam=65000.0, Olivia=63000.0, Chloe=59000.0, Sophia=62000.0}
+//
+//{Alexander=58000.0,58000.0, Charlotte=54000.0,59000.0, Grace=54000.0,54000.0, John=60000.0,60000.0, Lily=56000.0, Emily=54000.0,54000.0, Sarah=58000.0, Michael=58000.0,58000.0,58000.0, Ella=65000.0,65000.0, Ethan=62000.0, James=58000.0,59000.0, Mia=65000.0,58000.0, Oliver=62000.0,62000.0, Alice=55000.0,55000.0, Lucas=63000.0,63000.0, Benjamin=62000.0,62000.0, Daniel=56000.0,60000.0,56000.0, William=63000.0,54000.0, Noah=54000.0, Harper=59000.0,62000.0, Ava=62000.0,56000.0, Liam=56000.0,65000.0, Olivia=63000.0, Chloe=59000.0, Sophia=62000.0,62000.0,55000.0,62000.0}
 
 	}
 
